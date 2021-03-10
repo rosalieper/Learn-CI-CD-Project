@@ -3,7 +3,7 @@ version: 2.1
 commands:
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-    parameters:
+    #parameters:
       # Add parameter here   
     steps:
       - run:
@@ -15,7 +15,7 @@ commands:
 
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
-    parameters:
+    #parameters:
       # Add parameter here     
     steps:
       - run:
@@ -67,7 +67,7 @@ jobs:
 
   test-frontend:
     docker:
-      # Docker image here
+      - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
       # Restore from cache
@@ -75,7 +75,7 @@ jobs:
                 
   test-backend:
     docker:
-      # Docker image here
+      - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
       # Restore from cache
@@ -83,7 +83,7 @@ jobs:
             
   scan-frontend:
     docker:
-      # Docker image here
+      - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
       # Restore from cache
@@ -91,7 +91,7 @@ jobs:
 
   scan-backend:
     docker:
-      # Docker image here
+      - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
       # Restore from cache
@@ -99,7 +99,7 @@ jobs:
 
   deploy-infrastructure:
     docker:
-      # Docker image here that supports AWS CLI
+       - image: amazon/aws-cli
     steps:
       # Checkout code from git
       - run:
@@ -133,7 +133,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      # Docker image here that supports Ansible
+      - image: tomonorimatsumura/ubuntu18-ansible:stable
     steps:
       # Checkout code from git
       # Add ssh keys with fingerprint
@@ -152,7 +152,7 @@ jobs:
 
   run-migrations:
     docker:
-      # Docker image here that supports NodeJS
+     - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
       - run:
@@ -169,7 +169,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      # Docker image here that supports AWS CLI
+      - image: amazon/aws-cli
     steps:
       # Checkout code from git
       - run:
@@ -190,7 +190,7 @@ jobs:
                     
   deploy-backend:
     docker:
-      # Docker image here that supports Ansible
+     - image: tomonorimatsumura/ubuntu18-ansible:stable
     steps:
       # Checkout code from git
       # Add ssh keys with fingerprint
@@ -207,7 +207,7 @@ jobs:
 
   smoke-test:
     docker:
-      # Lightweight Docker image 
+      - image: circleci/node:13.8.0 
     steps:
       # Checkout code from git
       - run:
@@ -230,7 +230,7 @@ jobs:
 
   cloudfront-update:
     docker:
-      # Docker image here that supports AWS CLI
+      - image: amazon/aws-cli
     steps:
       # Checkout code from git
       - run:
@@ -245,7 +245,7 @@ jobs:
 
 cleanup:
     docker:
-      # Docker image here
+      - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
       - run:
