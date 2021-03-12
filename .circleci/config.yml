@@ -43,7 +43,9 @@ jobs:
       - run:
           name: Build front-end
           command: |
-            # Your code here
+            cd frontend
+            npm i
+            npm run build
             exit 1
       - save_cache:
           paths: [frontend/node_modules]
@@ -59,8 +61,11 @@ jobs:
       - run:
           name: Back-end build
           command: |
-             # Your code here
-             exit 1
+            cd backend
+            npm i
+            touch .env
+            cp .env.sample .env
+            npm run build
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
@@ -70,6 +75,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
+      - checkout
       # Restore from cache
       # Your job code here
                 
@@ -78,6 +84,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
+      - checkout
       # Restore from cache
       # Your job code here
             
@@ -86,6 +93,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
+      - checkout
       # Restore from cache
       # Your job code here
 
@@ -94,6 +102,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
+      - checkout
       # Restore from cache
       # Your job code here
 
@@ -102,6 +111,7 @@ jobs:
        - image: amazon/aws-cli
     steps:
       # Checkout code from git
+      - checkout
       - run:
           name: Ensure back-end infrastructure exists
           command: |
