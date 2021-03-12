@@ -253,7 +253,7 @@ jobs:
             # your code here
       # Here's where you will add some code to rollback on failure  
 
-cleanup:
+  cleanup:
     docker:
       - image: circleci/node:13.8.0
     steps:
