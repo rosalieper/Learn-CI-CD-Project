@@ -105,7 +105,7 @@ jobs:
       - restore_cache:
           keys: [ frontend-build ]
       - run:
-          name: test-frontend
+          name: scan-frontend
           command: |
             cd frontend
             npm audit --audit-level=critical
@@ -117,7 +117,7 @@ jobs:
       - restore_cache:
           keys: [backend-build]
       - run:
-          name: test-backend
+          name: scan-backend
           command: |
             cd backend
             npm audit --audit-level=critical
