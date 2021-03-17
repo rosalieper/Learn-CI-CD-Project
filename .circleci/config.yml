@@ -78,9 +78,10 @@ jobs:
           keys: [ frontend-build ]
       - run:
           name: test-frontend
-            command: |
-              cd frontend
-              npm run test
+          command: |
+            cd frontend
+            npm i
+            npm run test
                 
   test-backend:
     docker:
@@ -93,26 +94,33 @@ jobs:
           name: test-backend
           command: |
             cd backend
+            npm i
             npm run test
             
   scan-frontend:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      # Checkout code from git
       - checkout
-      # Restore from cache
-      # Your job code here
-
+      - restore_cache:
+          keys: [ frontend-build ]
+      - run:
+          name: scan-frontend
+          command: |
+            cd frontend
+            npm audit --audit-level=critical
   scan-backend:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      # Checkout code from git
       - checkout
-      # Restore from cache
-      # Your job code here
-
+      - restore_cache:
+          keys: [backend-build]
+      - run:
+          name: scan-backend
+          command: |
+            cd backend
+            npm audit --audit-level=critical
   deploy-infrastructure:
     docker:
        - image: amazon/aws-cli
